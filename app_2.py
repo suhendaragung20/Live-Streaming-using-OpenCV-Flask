@@ -41,11 +41,19 @@ def gen_frames():  # generate frame by frame from camera
     FPS = 60
     CALIBRATION = 1.5
     gap = 0.1
+    frame = None
     while True:
         # Capture frame-by-frame
         # success, frame = camera.read()  # read the camera frame
         # frame, success = skipFrames(gap, FPS, cam, CALIBRATION)
-        frame = cam.get_frame(0.65)
+        try:
+            f = open("image_stream.txt", "r")
+            file_name = f.readline()
+            f.close()
+            frame = cv2.imread('media/'+file_name+'.png')
+        except:
+            frame = None
+            pass
         # s = time.time()
 
         if frame is None:
