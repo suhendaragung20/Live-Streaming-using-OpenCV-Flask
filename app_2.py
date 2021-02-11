@@ -47,7 +47,7 @@ def gen_frames():  # generate frame by frame from camera
         # success, frame = camera.read()  # read the camera frame
         # frame, success = skipFrames(gap, FPS, cam, CALIBRATION)
         try:
-            frame = cv2.imread('../jetson-inference/build/aarch64/bin/cap.png')
+            frame = cv2.imread('./jetson-inference/build/aarch64/bin/cap.png')
         except:
             frame = None
             pass
