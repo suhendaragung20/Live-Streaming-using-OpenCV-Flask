@@ -43,7 +43,7 @@ def gen_frames():  # generate frame by frame from camera
     gap = 0.1
     frame = None
     while True:
-        time.sleep(0.05)
+#         time.sleep(0.05)
         # Capture frame-by-frame
         # success, frame = camera.read()  # read the camera frame
         # frame, success = skipFrames(gap, FPS, cam, CALIBRATION)
