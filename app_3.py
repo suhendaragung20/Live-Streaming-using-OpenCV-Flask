@@ -123,7 +123,7 @@ def detect():
     output.SetStatus("{:s} | Network {:.0f} FPS".format(opt.network, net.GetNetworkFPS()))
 
     # print out performance info
-    net.PrintProfilerTimes()
+#     net.PrintProfilerTimes()
 
     # # exit on input/output EOS
     # if not input.IsStreaming() or not output.IsStreaming():
