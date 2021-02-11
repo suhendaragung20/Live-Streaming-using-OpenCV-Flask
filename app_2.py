@@ -48,6 +48,7 @@ def gen_frames():  # generate frame by frame from camera
         # frame, success = skipFrames(gap, FPS, cam, CALIBRATION)
         try:
             frame = cv2.imread('../jetson-inference/build/aarch64/bin/cap.jpg')
+            print(frame.shape[:2])
             frame = cv2.resize(frame, (640, 480))
 #             frame = cv2.imread('tes.PNG')
         except:
