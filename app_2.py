@@ -1,10 +1,10 @@
 from flask import Flask, render_template, Response
 import cv2
 import time
-import camera
+# import camera
 app = Flask(__name__)
 
-cam = camera.camera('rtsp://admin:QPPZFE@192.168.100.57:554/H.264_stream')
+# cam = camera.camera('rtsp://admin:QPPZFE@192.168.100.57:554/H.264_stream')
 # cam = cv2.VideoCapture('rtsp://admin:QPPZFE@192.168.100.57:554/H.264_stream')  # use 0 for web camera
 #  for cctv camera use rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' instead of camera
 # for local webcam use cv2.VideoCapture(0)
