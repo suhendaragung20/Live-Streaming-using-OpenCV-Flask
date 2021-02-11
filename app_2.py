@@ -50,13 +50,13 @@ def gen_frames():  # generate frame by frame from camera
         try:
             new_frame = cv2.imread('../jetson-inference/build/aarch64/bin/cap.jpg')
             print(frame.shape[:2])
-            frame = cv2.resize(frame, (640, 480))
+            new_frame = cv2.resize(new_frame, (640, 480))
+            frame = new_frame
 #             frame = cv2.imread('tes.PNG')
         except:
 #             frame = None
             pass
         # s = time.time()
-
         if frame is None:
             continue
 
