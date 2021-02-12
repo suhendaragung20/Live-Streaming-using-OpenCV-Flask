@@ -126,9 +126,11 @@ def detect():
     detections = net.Detect(img, overlay=opt.overlay)
     print("det time", time.time() - tic)
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    
+    print(detections)
     # print the detections
     print("detected {:d} objects in image".format(len(detections)))
-
+    
     tic = time.time()
     for detection in detections:
         print(detection)
