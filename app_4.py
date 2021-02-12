@@ -140,6 +140,9 @@ def gen_frames_bird():
     while True:
         frame = bb.get()
 
+        if frame is None:
+            continue
+
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
