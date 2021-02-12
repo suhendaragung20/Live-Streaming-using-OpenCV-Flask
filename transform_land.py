@@ -203,6 +203,7 @@ class transform_land:
 
         bird_image = plot.plot_bird_view(frame, d_bird, roi_w, roi_h, violate, threshold)
 
+        print(d_bird)
         print("zzzzzzzzzzzzzzzzzzzzzzzz")
 
         return frame, bird_image, len(violate), len(d_bird) - len(violate)
