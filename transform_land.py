@@ -148,24 +148,24 @@ class transform_land:
 
         # ensure there are *at least* two people detections (required in
         # order to compute our pairwise distance maps)
-        if len(boxes) >= 2:
-            # extract all centroids from the results and compute the
-            # Euclidean distances between all pairs of the centroids
-            centroids = np.array(d_bird)
-            D = dist.cdist(centroids, centroids, metric="euclidean")
+        # if len(boxes) >= 2:
+        #     # extract all centroids from the results and compute the
+        #     # Euclidean distances between all pairs of the centroids
+        #     centroids = np.array(d_bird)
+        #     D = dist.cdist(centroids, centroids, metric="euclidean")
 
-            # loop over the upper triangular of the distance matrix
-            for i in range(0, D.shape[0]):
-                for j in range(i + 1, D.shape[1]):
-                    # check to see if the distance between any two
-                    # centroid pairs is less than the configured number
-                    # of pixels
-                    # if D[i, j] < config.MIN_DISTANCE:
-                    if D[i, j] < threshold:
-                        # update our violation set with the indexes of
-                        # the centroid pairs
-                        violate.add(i)
-                        violate.add(j)
+        #     # loop over the upper triangular of the distance matrix
+        #     for i in range(0, D.shape[0]):
+        #         for j in range(i + 1, D.shape[1]):
+        #             # check to see if the distance between any two
+        #             # centroid pairs is less than the configured number
+        #             # of pixels
+        #             # if D[i, j] < config.MIN_DISTANCE:
+        #             if D[i, j] < threshold:
+        #                 # update our violation set with the indexes of
+        #                 # the centroid pairs
+        #                 violate.add(i)
+        #                 violate.add(j)
 
         idx = 0
         alpha = 0.8
