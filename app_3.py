@@ -93,6 +93,7 @@ def gen_frames():  # generate frame by frame from camera
             
             tic = time.time()
             new_frame = cv2.imread("cap.jpg")
+            print("cv img type", type(new_frame))
             print(new_frame.shape[:2])
             new_frame = cv2.resize(new_frame, (640, 480))
             frame = new_frame
@@ -137,6 +138,7 @@ def detect():
     
     tic = time.time()
     output.Render(img)
+    print("jetson img type", type(img))
     print("render time", time.time() - tic)
 
     # update the title bar
