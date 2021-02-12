@@ -149,7 +149,7 @@ def detect():
 
     img_out = convert(img)
 
-    img_out, bird_image = transform_land.plot_region(tl, img_out)
+    img_out = transform_land.plot_region(tl, img_out)
 
     print("capture time", time.time() - tic)
     # detect objects in the image (with overlay)
