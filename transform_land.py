@@ -273,16 +273,16 @@ class transform_land:
 
 def plot_region(tl, image):
 
-    roi_ax = 500
-    roi_ay = 1050
+    roi_ax = 750
+    roi_ay = 340
 
-    roi_bx = 750
+    roi_bx = 1350
     roi_by = 340
 
-    roi_cx = 1350
-    roi_cy = 340
+    roi_cx = 1919
+    roi_cy = 1050
 
-    roi_dx = 1919
+    roi_dx = 500
     roi_dy = 1050
 
     roi_w = 300
@@ -366,16 +366,18 @@ def plot_region(tl, image):
 
 
 def get_bird(tl, image, boxes):
-    roi_ax = 500
-    roi_ay = 1050
+    
 
-    roi_bx = 750
+    roi_ax = 750
+    roi_ay = 340
+
+    roi_bx = 1350
     roi_by = 340
 
-    roi_cx = 1350
-    roi_cy = 340
+    roi_cx = 1919
+    roi_cy = 1050
 
-    roi_dx = 1919
+    roi_dx = 500
     roi_dy = 1050
 
     roi_w = 300
