@@ -136,7 +136,7 @@ class transform_land:
             # boxes.append((startX, startY, w, h))
 
         # print(boxes)
-        print("bboxe", person_points)
+        print("bboxe", boxes)
         person_points = utills.get_transformed_points(boxes, prespective_transform)
         person_inside = []
 
