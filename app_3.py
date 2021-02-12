@@ -17,6 +17,8 @@ import jetson.utils
 import argparse
 import sys
 
+import numpy as np
+
 # parse the command line
 parser = argparse.ArgumentParser(description="Locate objects in a live camera stream using an object detection DNN.", 
                                  formatter_class=argparse.RawTextHelpFormatter, epilog=jetson.inference.detectNet.Usage() +
