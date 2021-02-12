@@ -120,6 +120,9 @@ def gen_frames():  # generate frame by frame from camera
 def detect():
     tic = time.time()
     img = input.Capture()
+
+    img_out = convert(img)
+
     print("capture time", time.time() - tic)
     # detect objects in the image (with overlay)
     tic = time.time()
@@ -132,7 +135,7 @@ def detect():
     print("detected {:d} objects in image".format(len(detections)))
     
     tic = time.time()
-    img_out = convert(img)
+    
     for detection in detections:
         print(detection)
         print("this is top", detection.Top)
