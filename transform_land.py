@@ -128,7 +128,8 @@ class transform_land:
 
         # resize the frame and then detect people (and only people) in it
 
-        roi_pixel = self.to_roi_pixel(frame, roi)
+        # roi_pixel = self.to_roi_pixel(frame, roi)
+        roi_pixel = roi
         prespective_transform, frame = self.top_down_transformation(frame, roi_pixel, (255,255,255), 0)
 
         # print(results)
