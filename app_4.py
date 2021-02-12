@@ -153,7 +153,8 @@ def detect():
     tic = time.time()
     img = input.Capture()
 
-    img_out = convert(img)
+    img_conv = convert(img)
+    img_out = img_conv.copy()
 
     img_out = transform_land.plot_region(tl, img_out)
 
