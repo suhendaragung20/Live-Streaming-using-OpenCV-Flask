@@ -94,7 +94,7 @@ def gen_frames():  # generate frame by frame from camera
 #             time.sleep(0.1)
         
         # new_frame = cv2.imread("cap.jpg")
-        new_frame = cv2.resize(new_frame, (640, 480))
+        # new_frame = cv2.resize(new_frame, (640, 480))
 
         frame = new_frame
         print("success")
