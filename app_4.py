@@ -268,7 +268,7 @@ def video_feed():
 
 
 @app.route('/video_feed_2')
-def video_feed():
+def video_feed_2():
     #Video streaming route. Put this in the src attribute of an img tag
     return Response(gen_frames_bird(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
