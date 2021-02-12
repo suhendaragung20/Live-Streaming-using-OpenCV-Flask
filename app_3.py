@@ -130,7 +130,7 @@ def detect():
     print("detected {:d} objects in image".format(len(detections)))
     
     tic = time.time()
-    img_out = img
+    img_out = convert(img)
     for detection in detections:
         print(detection)
         print("this is top", detection.Top)
@@ -160,6 +160,16 @@ def detect():
     # # exit on input/output EOS
     # if not input.IsStreaming() or not output.IsStreaming():
     #     break
+
+
+def convert(img):
+    aimg = jetson.utils.cudaToNumpy (img, 1920, 1080, 4)
+    #print ("img shape {}".format (aimg1.shape))
+    aimg1 = cv2.cvtColor(aimg.astype (np.uint8), cv2.COLOR_RGBA2BGR)
+
+    return aimg1
+
+
 
 
 def plot_object(frame, box, text):
