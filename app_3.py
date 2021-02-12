@@ -107,16 +107,16 @@ def gen_frames():  # generate frame by frame from camera
 
 def detect():
     img = input.Capture()
-
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     # detect objects in the image (with overlay)
     detections = net.Detect(img, overlay=opt.overlay)
-
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     # print the detections
     print("detected {:d} objects in image".format(len(detections)))
 
     for detection in detections:
         print(detection)
-
+    print("#####################################")
     # render the image
     output.Render(img)
 
