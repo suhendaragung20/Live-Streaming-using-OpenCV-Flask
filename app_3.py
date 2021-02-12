@@ -80,18 +80,24 @@ def gen_frames():  # generate frame by frame from camera
     frame = None
     while True:
         print("================================")
+        toc = time.time()
 #         time.sleep(0.05)
         # Capture frame-by-frame
         # success, frame = camera.read()  # read the camera frame
         # frame, success = skipFrames(gap, FPS, cam, CALIBRATION)
         try:
+            tic = time.time()
             detect()
+            print("detection time", time.time() - tic)
 #             time.sleep(0.1)
+            
+            tic = time.time()
             new_frame = cv2.imread("cap.jpg")
             print(new_frame.shape[:2])
             new_frame = cv2.resize(new_frame, (640, 480))
             frame = new_frame
             print("success")
+            print("read time", time.time() - tic)
 #             frame = cv2.imread('tes.PNG')
         except:
             frame = None
@@ -100,9 +106,11 @@ def gen_frames():  # generate frame by frame from camera
         # s = time.time()
         if frame is None:
             continue
-
+        tic = time.time()
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
+        print("add to buffer", time.time() - tic)
+        print("total time", time.time() - toc)
         # gap = time.time()-s
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
