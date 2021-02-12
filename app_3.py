@@ -87,15 +87,13 @@ def gen_frames():  # generate frame by frame from camera
         # frame, success = skipFrames(gap, FPS, cam, CALIBRATION)
         try:
             tic = time.time()
-            detect()
+            new_frame = detect()
             print("detection time", time.time() - tic)
 #             time.sleep(0.1)
             
-            tic = time.time()
-            new_frame = cv2.imread("cap.jpg")
-            print("cv img type", type(new_frame))
-            print(new_frame.shape[:2])
+            # new_frame = cv2.imread("cap.jpg")
             new_frame = cv2.resize(new_frame, (640, 480))
+
             frame = new_frame
             print("success")
             print("read time", time.time() - tic)
@@ -132,17 +130,26 @@ def detect():
     print("detected {:d} objects in image".format(len(detections)))
     
     tic = time.time()
+    img_out = img
     for detection in detections:
         print(detection)
         print("this is top", detection.Top)
+        box = (int(detection.Left), int(detection.Top), int(detection.Right), int(detection.Bottom))
+        if detection.ClassID == 1:
+            text = "Person, " + str(int(detection.Confidence * 100)) + "%"
+        else:
+            text = "Object"
+        if detection.ClassID == 1:
+            img_out = plot_object(img_out, box, text)
     print("loop time", time.time() - tic)
     print("#####################################")
     # render the image
     
     tic = time.time()
-    output.Render(img)
+    # output.Render(img)
     print("jetson img type", type(img))
     print("render time", time.time() - tic)
+    return img_out
 
     # update the title bar
 #     output.SetStatus("{:s} | Network {:.0f} FPS".format(opt.network, net.GetNetworkFPS()))
@@ -153,6 +160,50 @@ def detect():
     # # exit on input/output EOS
     # if not input.IsStreaming() or not output.IsStreaming():
     #     break
+
+
+def plot_object(frame, box, text):
+    overlay = frame.copy()
+
+    (H, W) = frame.shape[:2]
+
+    box_border = int(W / 400)
+
+    font_size = 0.6
+    (startX, startY, endX, endY) = box
+
+    y = startY - 10 if startY - 10 > 10 else startY + 10
+
+    yBox = y + 5
+
+    fill_color = (238, 127, 108)
+
+    cv2.rectangle(overlay, (startX, startY), (endX, endY),
+                  (255, 255, 255), box_border+4)
+
+
+    cv2.rectangle(overlay, (startX, startY), (endX, endY),
+                  fill_color, box_border+2)
+
+    font_scale = (0.6*box_border)
+    thick = box_border
+
+    (text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, thickness=int(thick))[0]
+    # set the text start position
+    text_offset_x = startX
+    text_offset_y = yBox
+    # make the coords of the box with a small padding of two pixels
+    box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
+    cv2.rectangle(overlay, box_coords[0], box_coords[1], fill_color, cv2.FILLED)
+
+    cv2.putText(overlay, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), int(thick))
+
+    alpha = 0.6  # Transparency factor.
+
+    # Following line overlays transparent rectangle over the image
+    frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
+
+    return frame
 
 
 @app.route('/video_feed')
