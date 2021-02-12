@@ -359,7 +359,7 @@ def plot_region(tl, image):
     return image
 
 
-def get_bird(image, boxes):
+def get_bird(tl, image, boxes):
     roi_ax = 500
     roi_ay = 1050
 

@@ -182,7 +182,7 @@ def detect():
             h = int(detection.Bottom) - startY
             boxes.append((startX, startY, w, h))
 
-    bird_image = transform_land.get_bird(img_out, boxes)
+    bird_image = transform_land.get_bird(tl, img_out, boxes)
 
     bb.set(bird_image)
 
