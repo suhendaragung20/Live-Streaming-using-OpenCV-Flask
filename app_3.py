@@ -132,7 +132,7 @@ def detect():
     output.Render(img)
 
     # update the title bar
-    output.SetStatus("{:s} | Network {:.0f} FPS".format(opt.network, net.GetNetworkFPS()))
+#     output.SetStatus("{:s} | Network {:.0f} FPS".format(opt.network, net.GetNetworkFPS()))
 
     # print out performance info
 #     net.PrintProfilerTimes()
