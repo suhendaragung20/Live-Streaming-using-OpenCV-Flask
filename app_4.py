@@ -52,6 +52,21 @@ output = jetson.utils.videoOutput("cap.jpg")
 
 
 
+class bird:
+
+    def __init__(self):
+        self.image = None
+
+    def set(self, image):
+        self.image = image
+
+    def get(self):
+        return self.image
+
+bb = bird()
+
+
+
 def skipFrames(timegap, FPS, cap, CALIBRATION):
    latest = None
    while True :  
@@ -120,6 +135,13 @@ def gen_frames():  # generate frame by frame from camera
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
+def gen_frames_bird():
+    frame = None
+    while True:
+        frame = bb.get()
+
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
 def detect():
     tic = time.time()
@@ -142,6 +164,8 @@ def detect():
     
     tic = time.time()
     
+    boxes = []
+
     for detection in detections:
         print(detection)
         print("this is top", detection.Top)
@@ -152,6 +176,16 @@ def detect():
             text = "Object"
         if detection.ClassID == 1:
             img_out = plot_object(img_out, box, text)
+            startX = int(detection.Left)
+            startY = int(detection.Top)
+            w = int(detection.Right) - startX
+            h = int(detection.Bottom) - startY
+            boxes.append((startX, startY, w, h))
+
+    bird_image = transform_land.get_bird(img_out, boxes)
+
+    bb.set(bird_image)
+
     print("loop time", time.time() - tic)
     print("#####################################")
     # render the image
@@ -231,6 +265,12 @@ def plot_object(frame, box, text):
 def video_feed():
     #Video streaming route. Put this in the src attribute of an img tag
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/video_feed_2')
+def video_feed():
+    #Video streaming route. Put this in the src attribute of an img tag
+    return Response(gen_frames_bird(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/')

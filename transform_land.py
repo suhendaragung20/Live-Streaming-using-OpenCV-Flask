@@ -289,10 +289,6 @@ def plot_region(tl, image):
     boxes = []
     results = []
 
-    image, bird_image, num_violate, num_clear = tl.calc_advance(image, 20, roi, roi_w, roi_h, boxes)
-
-
-
 
     # =====================================================
     roi_ax = 500
@@ -359,4 +355,28 @@ def plot_region(tl, image):
 
     image = tl.show_line(image, 20, roi_3, (0,0,255), 0.25)
 
-    return image, bird_image
+    
+    return image
+
+
+def get_bird(image, boxes):
+    roi_ax = 500
+    roi_ay = 1050
+
+    roi_bx = 750
+    roi_by = 340
+
+    roi_cx = 1350
+    roi_cy = 340
+
+    roi_dx = 1919
+    roi_dy = 1050
+
+    roi_w = 300
+    roi_h = 600
+
+    roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
+
+    image, bird_image, num_violate, num_clear = tl.calc_advance(image, 20, roi, roi_w, roi_h, boxes)
+
+    return bird_image
