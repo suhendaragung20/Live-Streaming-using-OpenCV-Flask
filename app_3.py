@@ -134,6 +134,7 @@ def detect():
     tic = time.time()
     for detection in detections:
         print(detection)
+        print("this is top", detection.Top)
     print("loop time", time.time() - tic)
     print("#####################################")
     # render the image
