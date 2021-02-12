@@ -136,9 +136,11 @@ class transform_land:
             # boxes.append((startX, startY, w, h))
 
         # print(boxes)
-
+        print("bboxe", person_points)
         person_points = utills.get_transformed_points(boxes, prespective_transform)
         person_inside = []
+
+        print("person_points", person_points)
 
         d_center, d_bottom, d_bird, num_inside, num_outside = plot.filter_inside_roi(frame, person_points, boxes, roi_w, roi_h, 0)
 

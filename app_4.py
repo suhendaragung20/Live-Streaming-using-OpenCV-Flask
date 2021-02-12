@@ -142,7 +142,7 @@ def gen_frames_bird():
 
         if frame is None:
             continue
-        
+
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
@@ -187,6 +187,7 @@ def detect():
             h = int(detection.Bottom) - startY
             boxes.append((startX, startY, w, h))
 
+    print("boxes", boxes)
     bird_image = transform_land.get_bird(tl, img_out, boxes)
 
     bb.set(bird_image)
