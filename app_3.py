@@ -42,7 +42,7 @@ net = jetson.inference.detectNet(opt.network, sys.argv, opt.threshold)
 
 # create video sources & outputs
 input = jetson.utils.videoSource("rtsp://admin:QPPZFE@192.168.100.98:554/H.264_stream")
-output = jetson.utils.videoOutput(opt.output_URI, argv=sys.argv+is_headless)
+output = jetson.utils.videoOutput("cap.jpg")
 
 
 
