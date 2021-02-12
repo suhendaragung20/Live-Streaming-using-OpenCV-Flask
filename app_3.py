@@ -117,19 +117,27 @@ def gen_frames():  # generate frame by frame from camera
 
 
 def detect():
+    tic = time.time()
     img = input.Capture()
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print("capture time", time.time() - tic)
     # detect objects in the image (with overlay)
+    tic = time.time()
     detections = net.Detect(img, overlay=opt.overlay)
+    print("det time", time.time() - tic)
     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     # print the detections
     print("detected {:d} objects in image".format(len(detections)))
 
+    tic = time.time()
     for detection in detections:
         print(detection)
+    print("loop time", time.time() - tic)
     print("#####################################")
     # render the image
+    
+    tic = time.time()
     output.Render(img)
+    print("render time", time.time() - tic)
 
     # update the title bar
 #     output.SetStatus("{:s} | Network {:.0f} FPS".format(opt.network, net.GetNetworkFPS()))
