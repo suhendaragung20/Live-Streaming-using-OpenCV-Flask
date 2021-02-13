@@ -398,29 +398,32 @@ def filter_zone(d_boxes, d_bird, texts, img_out):
 
         if x < 60 and y > 350:
             text = "Looking at the window"
+            img_out = plot_object(img_out, box, text, (68,68,232))
 
         elif x > 200 and y > 350:
             text = "Looking at the plants"
+            img_out = plot_object(img_out, box, text, (68,68,232))
 
-        img_out = plot_object(img_out, box, text)
+        else:
+            img_out = plot_object(img_out, box, text)
 
     return img_out
 
-def plot_object(frame, box, text):
+def plot_object(frame, box, text, fill_color=(238, 127, 108)):
     overlay = frame.copy()
 
     (H, W) = frame.shape[:2]
 
     box_border = int(W / 400)
 
-    font_size = 0.6
+    font_size = 0.5
     (startX, startY, endX, endY) = box
 
     y = startY - 10 if startY - 10 > 10 else startY + 10
 
     yBox = y + 5
 
-    fill_color = (238, 127, 108)
+    # fill_color = (238, 127, 108)
 
     cv2.rectangle(overlay, (startX, startY), (endX, endY),
                   (255, 255, 255), box_border+4)
@@ -429,12 +432,16 @@ def plot_object(frame, box, text):
     cv2.rectangle(overlay, (startX, startY), (endX, endY),
                   fill_color, box_border+2)
 
-    font_scale = (0.6*box_border)
+    font_scale = (0.5*box_border)
     thick = box_border
 
     (text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, thickness=int(thick))[0]
     # set the text start position
-    text_offset_x = startX
+
+    if ((endX - startX)/2)+startX > w/2:
+        text_offset_x = endX - text_width
+    else:
+        text_offset_x = startX
     text_offset_y = yBox
     # make the coords of the box with a small padding of two pixels
     box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
