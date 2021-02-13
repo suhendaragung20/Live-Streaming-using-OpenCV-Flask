@@ -438,7 +438,7 @@ def plot_object(frame, box, text, fill_color=(238, 127, 108)):
     (text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, thickness=int(thick))[0]
     # set the text start position
 
-    if ((endX - startX)/2)+startX > w/2:
+    if ((endX - startX)/2)+startX > W/2:
         text_offset_x = endX - text_width
     else:
         text_offset_x = startX
