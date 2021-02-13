@@ -390,6 +390,3 @@ def get_bird(tl, image, boxes):
     return bird_image
 
 
-def plot_warning_zone(bird_image):
-    cv2.rectangle(bird_image, (1, 350), (60, 600), (0,0,200), -1)
-    return bird_image

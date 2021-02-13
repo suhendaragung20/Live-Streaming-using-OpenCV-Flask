@@ -85,6 +85,8 @@ def plot_bird_view(frame, d_bird, w_roi, h_roi, violate, threshold):
     blank_image = np.zeros((int(h * scale_h), int(w * scale_w), 3), np.uint8)
     blank_image[:] = white
 
+    blank_image = plot_warning_zone(blank_image)
+
     for (i, pos_bird) in enumerate(d_bird):
         if i in violate:
             blank_image = cv2.circle(blank_image, pos_bird, 5, red, -1)
@@ -97,6 +99,13 @@ def plot_bird_view(frame, d_bird, w_roi, h_roi, violate, threshold):
             blank_image = cv2.putText(blank_image, str(i), pos_bird, cv2.FONT_HERSHEY_SIMPLEX, 0.7, comvis_color, 2)
             blank_image = cv2.circle(blank_image, pos_bird, int(threshold/2), comvis_color, 4)
     return blank_image
+
+
+def plot_warning_zone(bird_image):
+    cv2.rectangle(bird_image, (1, 350), (300, 600), (91,195,117), -1)
+    cv2.rectangle(bird_image, (1, 350), (60, 600), (68,68,232), -1)
+    cv2.rectangle(bird_image, (200, 350), (300, 600), (68,68,232), -1)
+    return bird_image
 
 
 def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_count):
