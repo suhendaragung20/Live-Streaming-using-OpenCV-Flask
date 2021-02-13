@@ -190,6 +190,8 @@ def detect():
     print("boxes", boxes)
     bird_image = transform_land.get_bird(tl, img_out, boxes)
 
+    bird_image = transform_land.plot_warning_zone(bird_image)
+
     bb.set(bird_image)
 
     print("loop time", time.time() - tic)

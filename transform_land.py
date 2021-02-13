@@ -388,3 +388,8 @@ def get_bird(tl, image, boxes):
     image, bird_image, num_violate, num_clear = tl.calc_advance(image, 20, roi, roi_w, roi_h, boxes)
 
     return bird_image
+
+
+def plot_warning_zone(bird_image):
+    cv2.rectangle(bird_image, (1, 350), (60, 600), (0,0,200), -1)
+    return bird_image
