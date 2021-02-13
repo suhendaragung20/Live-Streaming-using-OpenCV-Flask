@@ -48,6 +48,7 @@ net = jetson.inference.detectNet(opt.network, sys.argv, opt.threshold)
 
 # create video sources & outputs
 input = jetson.utils.videoSource("rtsp://admin:QPPZFE@192.168.100.98:554/H.264_stream")
+# input = jetson.utils.videoSource("tes.mp4")
 output = jetson.utils.videoOutput("cap.jpg")
 
 
@@ -152,7 +153,8 @@ def detect():
     tic = time.time()
     img = input.Capture()
 
-    img_out = convert(img)
+    img_conv = convert(img)
+    img_out = img_conv.copy()
 
     img_out = transform_land.plot_region(tl, img_out)
 
