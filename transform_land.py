@@ -447,7 +447,7 @@ def plot_object(frame, box, text, fill_color=(238, 127, 108)):
     box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
     cv2.rectangle(overlay, box_coords[0], box_coords[1], fill_color, cv2.FILLED)
 
-    cv2.putText(overlay, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), int(thick))
+    cv2.putText(overlay, text, (text_offset_x, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), int(thick))
 
     alpha = 0.6  # Transparency factor.
 
