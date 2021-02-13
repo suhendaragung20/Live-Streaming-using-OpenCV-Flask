@@ -35,6 +35,7 @@ def filter_inside_roi(frame, bottom_points, boxes, w_roi, h_roi, risk_count):
  
     data_position_real_center = []
     data_position_real_bottom = []
+    data_position_real_boxes = []
     data_bird_view = []
 
     num_inside = 0
@@ -58,6 +59,7 @@ def filter_inside_roi(frame, bottom_points, boxes, w_roi, h_roi, risk_count):
             data_position_real_center.append(position_real_center)
             data_position_real_bottom.append(position_real_bottom)
             data_bird_view.append(posision_bird)
+            data_position_real_boxes.append((startX, startY, w+startX, h+startY))
 
             num_inside += 1
         else:
@@ -66,7 +68,7 @@ def filter_inside_roi(frame, bottom_points, boxes, w_roi, h_roi, risk_count):
     print('num num_inside : ', num_inside)
     print('num num_outside : ', num_outside)
 
-    return data_position_real_center, data_position_real_bottom, data_bird_view, num_inside, num_outside
+    return data_position_real_center, data_position_real_bottom, data_position_real_boxes, data_bird_view, num_inside, num_outside
 
 
 def plot_bird_view(frame, d_bird, w_roi, h_roi, violate, threshold):

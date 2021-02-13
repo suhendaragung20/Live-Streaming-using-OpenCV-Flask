@@ -172,6 +172,7 @@ def detect():
     tic = time.time()
     
     boxes = []
+    texts = []
 
     for detection in detections:
         print(detection)
@@ -182,7 +183,7 @@ def detect():
         else:
             text = "Object"
         if detection.ClassID == 1:
-            img_out = plot_object(img_out, box, text)
+            texts.append(text)
             startX = int(detection.Left)
             startY = int(detection.Top)
             w = int(detection.Right) - startX
@@ -190,7 +191,9 @@ def detect():
             boxes.append((startX, startY, w, h))
 
     print("boxes", boxes)
-    bird_image = transform_land.get_bird(tl, img_out, boxes)
+    bird_image, d_boxes, d_bird = transform_land.get_bird(tl, img_out, boxes)
+
+    img_out = transform_land.filter_zone(d_boxes, d_bird, texts, img_out)
 
     bb.set(bird_image)
 
@@ -222,51 +225,6 @@ def convert(img):
 
     return aimg1
 
-
-
-
-def plot_object(frame, box, text):
-    overlay = frame.copy()
-
-    (H, W) = frame.shape[:2]
-
-    box_border = int(W / 400)
-
-    font_size = 0.6
-    (startX, startY, endX, endY) = box
-
-    y = startY - 10 if startY - 10 > 10 else startY + 10
-
-    yBox = y + 5
-
-    fill_color = (238, 127, 108)
-
-    cv2.rectangle(overlay, (startX, startY), (endX, endY),
-                  (255, 255, 255), box_border+4)
-
-
-    cv2.rectangle(overlay, (startX, startY), (endX, endY),
-                  fill_color, box_border+2)
-
-    font_scale = (0.6*box_border)
-    thick = box_border
-
-    (text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, thickness=int(thick))[0]
-    # set the text start position
-    text_offset_x = startX
-    text_offset_y = yBox
-    # make the coords of the box with a small padding of two pixels
-    box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
-    cv2.rectangle(overlay, box_coords[0], box_coords[1], fill_color, cv2.FILLED)
-
-    cv2.putText(overlay, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), int(thick))
-
-    alpha = 0.6  # Transparency factor.
-
-    # Following line overlays transparent rectangle over the image
-    frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
-
-    return frame
 
 
 @app.route('/video_feed')

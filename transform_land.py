@@ -143,7 +143,7 @@ class transform_land:
 
         print("person_points", person_points)
 
-        d_center, d_bottom, d_bird, num_inside, num_outside = plot.filter_inside_roi(frame, person_points, boxes, roi_w, roi_h, 0)
+        d_center, d_bottom, d_boxes, d_bird, num_inside, num_outside = plot.filter_inside_roi(frame, person_points, boxes, roi_w, roi_h, 0)
 
         # initialize the set of indexes that violate the minimum social
         # distance
@@ -209,7 +209,7 @@ class transform_land:
         print(d_bird)
         print("zzzzzzzzzzzzzzzzzzzzzzzz")
 
-        return frame, bird_image, len(violate), len(d_bird) - len(violate)
+        return frame, bird_image, len(violate), len(d_bird) - len(violate), d_boxes, d_bird
 
 
     def calc_simple(self, frame, threshold):
@@ -385,8 +385,69 @@ def get_bird(tl, image, boxes):
 
     roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
 
-    image, bird_image, num_violate, num_clear = tl.calc_advance(image, 20, roi, roi_w, roi_h, boxes)
+    image, bird_image, num_violate, num_clear, d_boxes, d_bird = tl.calc_advance(image, 20, roi, roi_w, roi_h, boxes)
 
-    return bird_image
+    return bird_image, d_boxes, d_bird
+
+
+def filter_zone(d_boxes, d_bird, texts, img_out):
+    
+    for bird, box, text in zip(d_bird, d_boxes, texts):
+
+        x, y = bird
+
+        if x < 60 and y > 350:
+            text = "Looking at the window"
+
+        elif x > 200 and y > 350:
+            text = "Looking at the plants"
+
+        img_out = plot_object(img_out, box, text)
+
+    return img_out
+
+def plot_object(frame, box, text):
+    overlay = frame.copy()
+
+    (H, W) = frame.shape[:2]
+
+    box_border = int(W / 400)
+
+    font_size = 0.6
+    (startX, startY, endX, endY) = box
+
+    y = startY - 10 if startY - 10 > 10 else startY + 10
+
+    yBox = y + 5
+
+    fill_color = (238, 127, 108)
+
+    cv2.rectangle(overlay, (startX, startY), (endX, endY),
+                  (255, 255, 255), box_border+4)
+
+
+    cv2.rectangle(overlay, (startX, startY), (endX, endY),
+                  fill_color, box_border+2)
+
+    font_scale = (0.6*box_border)
+    thick = box_border
+
+    (text_width, text_height) = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, fontScale=font_scale, thickness=int(thick))[0]
+    # set the text start position
+    text_offset_x = startX
+    text_offset_y = yBox
+    # make the coords of the box with a small padding of two pixels
+    box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 2, text_offset_y - text_height - 2))
+    cv2.rectangle(overlay, box_coords[0], box_coords[1], fill_color, cv2.FILLED)
+
+    cv2.putText(overlay, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), int(thick))
+
+    alpha = 0.6  # Transparency factor.
+
+    # Following line overlays transparent rectangle over the image
+    frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
+
+    return frame
+
 
 
