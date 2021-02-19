@@ -377,7 +377,7 @@ def get_bird(tl, image, boxes):
     roi_dy = 1080
 
     roi_w = 300
-    roi_h = 550
+    roi_h = 555
 
     roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
 
