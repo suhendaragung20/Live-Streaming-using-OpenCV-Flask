@@ -302,7 +302,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, 20, roi, (255,0,0), 0.1)
+    image = fill_box(image, roi, (255,0,0), 0.1)
 
     boxes = []
     results = []
@@ -325,7 +325,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi_1 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, 20, roi_1, (0,255,0), 0.11)
+    image = fill_box(image, roi_1, (0,255,0), 0.11)
 
 
 
@@ -347,7 +347,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi_2 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, 20, roi_2, (0,0,255), 0.25)
+    image = fill_box(image, roi_2, (0,0,255), 0.25)
 
 
 
@@ -368,7 +368,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi_3 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, 20, roi_3, (0,0,255), 0.25)
+    image = fill_box(image, roi_3, (0,0,255), 0.25)
 
     
     return image
