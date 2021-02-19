@@ -284,7 +284,7 @@ def fill_box(frame, roi, color, a_fill):
     return frame
 
 
-def plot_region(tl, image):
+def plot_region(image):
 
     roi_ax = 750
     roi_ay = 340
@@ -301,8 +301,10 @@ def plot_region(tl, image):
     roi_w = 300
     roi_h = 600
 
+    tic = time.time()
     roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
     image = fill_box(image, roi, (255,0,0), 0.1)
+    print("fill_box", time.time() - tic)
 
     boxes = []
     results = []
@@ -324,8 +326,10 @@ def plot_region(tl, image):
     roi_w = 300
     roi_h = 600
 
+    tic = time.time()
     roi_1 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
     image = fill_box(image, roi_1, (0,255,0), 0.11)
+    print("fill_box", time.time() - tic)
 
 
 
@@ -346,8 +350,10 @@ def plot_region(tl, image):
     roi_w = 300
     roi_h = 600
 
+    tic = time.time()
     roi_2 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
     image = fill_box(image, roi_2, (0,0,255), 0.25)
+    print("fill_box", time.time() - tic)
 
 
 
@@ -367,8 +373,10 @@ def plot_region(tl, image):
     roi_w = 300
     roi_h = 600
 
+    tic = time.time()
     roi_3 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
     image = fill_box(image, roi_3, (0,0,255), 0.25)
+    print("fill_box", time.time() - tic)
 
     
     return image

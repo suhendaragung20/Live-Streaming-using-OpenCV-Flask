@@ -115,11 +115,7 @@ def gen_frames():  # generate frame by frame from camera
         
         # new_frame = cv2.imread("cap.jpg")
         # new_frame = cv2.resize(new_frame, (640, 480))
-
         frame = new_frame
-        print("success")
-        print("read time", time.time() - tic)
-#             frame = cv2.imread('tes.PNG')
         # except:
         #     frame = None
         #     print("failll")
@@ -159,7 +155,7 @@ def detect():
     print("convert time", time.time() - tic)
 
     tic = time.time()
-    img_out = transform_land.plot_region(tl, img_out)
+    img_out = transform_land.plot_region(img_out)
     print("transform time", time.time() - tic)
     
     # detect objects in the image (with overlay)
