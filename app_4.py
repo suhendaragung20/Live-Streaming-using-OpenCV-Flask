@@ -162,11 +162,9 @@ def detect():
     tic = time.time()
     detections = net.Detect(img, overlay=opt.overlay)
     print("det time", time.time() - tic)
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     
-    print(detections)
     # print the detections
-    print("detected {:d} objects in image".format(len(detections)))
+    # print("detected {:d} objects in image".format(len(detections)))
     
     tic = time.time()
     
@@ -174,8 +172,6 @@ def detect():
     texts = []
 
     for detection in detections:
-        print(detection)
-        print("this is top", detection.Top)
         box = (int(detection.Left), int(detection.Top), int(detection.Right), int(detection.Bottom))
         if detection.ClassID == 1:
             text = "Person, " + str(int(detection.Confidence * 100)) + "%"
@@ -189,21 +185,15 @@ def detect():
             h = int(detection.Bottom) - startY
             boxes.append((startX, startY, w, h))
 
-    print("boxes", boxes)
     bird_image, d_boxes, d_bird = transform_land.get_bird(tl, img_out, boxes)
-
     img_out = transform_land.filter_zone(d_boxes, d_bird, texts, img_out)
-
     bb.set(bird_image)
 
     print("loop time", time.time() - tic)
     print("#####################################")
     # render the image
     
-    tic = time.time()
     # output.Render(img)
-    print("jetson img type", type(img))
-    print("render time", time.time() - tic)
     return img_out
 
     # update the title bar
