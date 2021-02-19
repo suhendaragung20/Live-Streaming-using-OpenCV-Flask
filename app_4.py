@@ -155,7 +155,7 @@ def detect():
     print("convert time", time.time() - tic)
 
     tic = time.time()
-    img_out = transform_land.plot_region(img_out)
+    img_out = tl.plot_region(img_out)
     print("transform time", time.time() - tic)
     
     # detect objects in the image (with overlay)

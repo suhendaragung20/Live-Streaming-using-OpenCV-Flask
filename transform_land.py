@@ -18,6 +18,7 @@ class transform_land:
 
     def __init__(self):
         tic = time.time()
+        self.real_roi = self.roi_real()
         # load the COCO class labels our YOLO model was trained on
         # labelsPath = os.path.sep.join([config.MODEL_PATH, "coco.names"])
         # self.LABELS = open(labelsPath).read().strip().split("\n")
@@ -42,6 +43,104 @@ class transform_land:
         # self.ln = [self.ln[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
 
         # print('###load_yolov3', time.time() - tic)
+
+    def roi_real(self):
+        image = np.zeros((1080, 1920, 3), np.uint8)
+
+        roi_ax = 750
+        roi_ay = 340
+
+        roi_bx = 1350
+        roi_by = 340
+
+        roi_cx = 1919
+        roi_cy = 1050
+
+        roi_dx = 500
+        roi_dy = 1050
+
+        roi_w = 300
+        roi_h = 600
+
+        tic = time.time()
+        roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
+        image = fill_box(image, roi, (255,0,0), 0.1)
+        # print("fill_box", time.time() - tic)
+
+        boxes = []
+        results = []
+
+
+        # =====================================================
+        roi_ax = 500
+        roi_ay = 1050
+
+        roi_bx = 660
+        roi_by = 600
+
+        roi_cx = 1555
+        roi_cy = 600
+
+        roi_dx = 1919
+        roi_dy = 1050
+
+        roi_w = 300
+        roi_h = 600
+
+        tic = time.time()
+        roi_1 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
+        image = fill_box(image, roi_1, (0,255,0), 0.11)
+        # print("fill_box", time.time() - tic)
+
+
+
+
+        # =====================================================
+        roi_ax = 500
+        roi_ay = 1050
+
+        roi_bx = 660
+        roi_by = 600
+
+        roi_cx = 830
+        roi_cy = 600
+
+        roi_dx = 800
+        roi_dy = 1050
+
+        roi_w = 300
+        roi_h = 600
+
+        tic = time.time()
+        roi_2 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
+        image = fill_box(image, roi_2, (0,0,255), 0.25)
+        # print("fill_box", time.time() - tic)
+
+
+
+        # =====================================================
+        roi_ax = 1410
+        roi_ay = 1050
+
+        roi_bx = 1230
+        roi_by = 600
+
+        roi_cx = 1555
+        roi_cy = 600
+
+        roi_dx = 1919
+        roi_dy = 1050
+
+        roi_w = 300
+        roi_h = 600
+
+        tic = time.time()
+        roi_3 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
+        image = fill_box(image, roi_3, (0,0,255), 0.25)
+        # print("fill_box", time.time() - tic)
+
+        return image
+
 
 
     def top_down_transformation(self, frame, roi, color, a_fill):
@@ -269,6 +368,13 @@ class transform_land:
 
         return frame, len(violate), len(results)
 
+    def plot_region(self,image):
+
+        alpha = 0.2
+        image = cv2.addWeighted(self.real_roi, alpha, image, 1 - alpha, 0)
+
+        return image
+
 
 def fill_box(frame, roi, color, a_fill):
     overlay = frame.copy()
@@ -283,103 +389,6 @@ def fill_box(frame, roi, color, a_fill):
 
     return frame
 
-
-def plot_region(image):
-
-    roi_ax = 750
-    roi_ay = 340
-
-    roi_bx = 1350
-    roi_by = 340
-
-    roi_cx = 1919
-    roi_cy = 1050
-
-    roi_dx = 500
-    roi_dy = 1050
-
-    roi_w = 300
-    roi_h = 600
-
-    tic = time.time()
-    roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, roi, (255,0,0), 0.1)
-    print("fill_box", time.time() - tic)
-
-    boxes = []
-    results = []
-
-
-    # =====================================================
-    roi_ax = 500
-    roi_ay = 1050
-
-    roi_bx = 660
-    roi_by = 600
-
-    roi_cx = 1555
-    roi_cy = 600
-
-    roi_dx = 1919
-    roi_dy = 1050
-
-    roi_w = 300
-    roi_h = 600
-
-    tic = time.time()
-    roi_1 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, roi_1, (0,255,0), 0.11)
-    print("fill_box", time.time() - tic)
-
-
-
-
-    # =====================================================
-    roi_ax = 500
-    roi_ay = 1050
-
-    roi_bx = 660
-    roi_by = 600
-
-    roi_cx = 830
-    roi_cy = 600
-
-    roi_dx = 800
-    roi_dy = 1050
-
-    roi_w = 300
-    roi_h = 600
-
-    tic = time.time()
-    roi_2 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, roi_2, (0,0,255), 0.25)
-    print("fill_box", time.time() - tic)
-
-
-
-    # =====================================================
-    roi_ax = 1410
-    roi_ay = 1050
-
-    roi_bx = 1230
-    roi_by = 600
-
-    roi_cx = 1555
-    roi_cy = 600
-
-    roi_dx = 1919
-    roi_dy = 1050
-
-    roi_w = 300
-    roi_h = 600
-
-    tic = time.time()
-    roi_3 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = fill_box(image, roi_3, (0,0,255), 0.25)
-    print("fill_box", time.time() - tic)
-
-    
-    return image
 
 
 def get_bird(tl, image, boxes):
