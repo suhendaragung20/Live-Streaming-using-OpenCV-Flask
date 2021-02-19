@@ -270,6 +270,19 @@ class transform_land:
         return frame, len(violate), len(results)
 
 
+def fill_box(frame, roi, color, a_fill):
+    overlay = frame.copy()
+
+    pnts = np.array(roi, np.int32)
+    cv2.fillPoly(overlay, [pnts], color)
+
+    alpha = a_fill  # Transparency factor.
+
+    # Following line overlays transparent rectangle over the image
+    frame = cv2.addWeighted(overlay, alpha, frame, 1 - alpha, 0)
+
+    return frame
+
 
 def plot_region(tl, image):
 
@@ -289,7 +302,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = tl.show_line(image, 20, roi, (255,0,0), 0.1)
+    image = fill_box(image, 20, roi, (255,0,0), 0.1)
 
     boxes = []
     results = []
@@ -312,7 +325,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi_1 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = tl.show_line(image, 20, roi_1, (0,255,0), 0.11)
+    image = fill_box(image, 20, roi_1, (0,255,0), 0.11)
 
 
 
@@ -334,7 +347,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi_2 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = tl.show_line(image, 20, roi_2, (0,0,255), 0.25)
+    image = fill_box(image, 20, roi_2, (0,0,255), 0.25)
 
 
 
@@ -355,7 +368,7 @@ def plot_region(tl, image):
     roi_h = 600
 
     roi_3 = [(roi_ax, roi_ay), (roi_bx, roi_by), (roi_cx, roi_cy), (roi_dx, roi_dy)]
-    image = tl.show_line(image, 20, roi_3, (0,0,255), 0.25)
+    image = fill_box(image, 20, roi_3, (0,0,255), 0.25)
 
     
     return image
