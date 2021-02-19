@@ -150,15 +150,18 @@ def gen_frames_bird():
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
 def detect():
-    tic = time.time()
+    
     img = input.Capture()
-
+    
+    tic = time.time()
     img_conv = convert(img)
     img_out = img_conv.copy()
+    print("convert time", time.time() - tic)
 
+    tic = time.time()
     img_out = transform_land.plot_region(tl, img_out)
-
-    print("capture time", time.time() - tic)
+    print("transform time", time.time() - tic)
+    
     # detect objects in the image (with overlay)
     tic = time.time()
     detections = net.Detect(img, overlay=opt.overlay)
